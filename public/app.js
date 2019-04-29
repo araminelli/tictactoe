@@ -235,9 +235,7 @@ class Game {
 	}
 	setWinnerPlayerResults() {
 		this.currentPlayer.countWin();
-		var msg = `${this.currentPlayer.getAs()} player won in ${
-			this.timeDuration
-		}s!`;
+		var msg = `${this.currentPlayer.getAs()} player won in ${this.timeDuration}s!`;
 		this.showResult(msg);
 	}
 	displayWinCombination() {
@@ -264,9 +262,7 @@ class Game {
 
 		if (this.fastestTime) {
 			let gameEl = $('#statistics .game');
-			gameEl.text(
-				`Fastest Time: ${this.fastestTime}s Slowest Time: ${this.slowestTime}s`
-			);
+			gameEl.text(`Fastest Time: ${this.fastestTime}s Slowest Time: ${this.slowestTime}s`);
 		}
 		this.displayLeaderBoard();
 
@@ -281,32 +277,22 @@ class Game {
 		this.players.forEach(player => {
 			var playerName = player.getName();
 			if (leaderBoard.has(playerName)) {
-				leaderBoard.set(
-					playerName,
-					leaderBoard.get(playerName) + player.getLeaderBoardDiff()
-				);
+				leaderBoard.set(playerName, leaderBoard.get(playerName) + player.getLeaderBoardDiff());
 			} else {
 				leaderBoard.set(playerName, player.getLeaderBoardDiff());
 			}
 			player.resetLeaderboard();
 		});
 
-		var leaderBoardSorted = [...leaderBoard.entries()].sort(
-			(a, b) => b[1] - a[1]
-		);
-		var top10 = leaderBoardSorted.splice(
-			0,
-			leaderBoardSorted.length >= 10 ? 10 : leaderBoardSorted.length
-		);
+		var leaderBoardSorted = [...leaderBoard.entries()].sort((a, b) => b[1] - a[1]);
+		var top10 = leaderBoardSorted.splice(0,leaderBoardSorted.length >= 10 ? 10 : leaderBoardSorted.length);
 		localStorage.setItem('leaderBoard', JSON.stringify(top10));
 	}
 	displayLeaderBoard() {
 		let leaderBoardEl = $('#statistics .leaderBoard');
 		leaderBoardEl.empty();
 		[...this.getLeaderBoard()].forEach((player, i) => {
-			let playerEl = `<div class="player">${i + 1}. ${player[0]}: ${
-				player[1]
-			} games won</div>`;
+			let playerEl = `<div class="player">${i + 1}. ${player[0]}: ${player[1]} games won</div>`;
 			leaderBoardEl.append(playerEl);
 		});
 	}
